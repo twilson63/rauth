@@ -10,7 +10,7 @@ describe 'app', ->
 
   # Sign Up
   it 'POST /:app/:account', ->
-    api['jackdocs']['jackhq3'].post email: 'my@email.com', password: 'password', confirm: 'password', (err, result) ->
+    api['jackdocs']['jackhq'].post email: 'my@email.com', password: 'password', confirm: 'password', (err, result) ->
       expect(result).toEqual 'OK'
       asyncSpecDone()
     asyncSpecWait()

@@ -1,5 +1,6 @@
 express = require 'express'
 redis = require 'redis'
+bcrypt = require 'bcrypt'
 
 db = redis.createClient()
 app = express.createServer()
@@ -13,8 +14,8 @@ app.get '/', (req, resp) ->
 app.post '/:app/authenticate', (req, resp) ->
   db.sismember "#{req.params.app}:accounts", req.body.account, (err, result) ->
     if result == 1 
-      db.hget "#{req.params.app}:accounts:#{req.body.account}", "password", (err, result) ->
-        resp.end if req.body.password == result then 'OK' else 'FAIL'
+      db.hget "#{req.params.app}:accounts:#{req.body.account}", "password_hash", (err, hash) ->
+        resp.end if bcrypt.compare_sync(req.body.password, hash) then 'OK' else 'FAIL'
     else
       resp.end 'FAIL'
 
@@ -22,9 +23,13 @@ app.post '/:app/authenticate', (req, resp) ->
 app.post '/:app/:account', (req, resp) ->
   db.sismember "apps", req.params.app, (err, result) ->
     if result == 1 and req.body.password == req.body.confirm
+      salt = bcrypt.gen_salt_sync(10)
+      account = 
+        email: req.body.email
+        password_hash: bcrypt.encrypt_sync(req.body.password, salt)
       db.multi()
         .sadd("#{req.params.app}:accounts", req.params.account)
-        .hmset("#{req.params.app}:accounts:#{req.params.account}", req.body)
+        .hmset("#{req.params.app}:accounts:#{req.params.account}", account)
         .exec (err, replies) ->
           #console.log replies
           resp.end 'OK'

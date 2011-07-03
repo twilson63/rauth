@@ -1,4 +1,12 @@
-# require.paths.unshift('./node_modules');
+#require.paths.unshift('./node_modules');
+#bcrypt = require('bcrypt')
+#salt = bcrypt.gen_salt_sync(10)
+#hash = bcrypt.encrypt_sync('password', salt)
+#hash = '$2a$10$nUOOt0ssfj8HGK5.zl9X3.LGykM5mGxefceFa4FpBuOSCAX4ohxCi'
+#console.log bcrypt.compare_sync('password', hash)
+#console.log salt
+#console.log hash
+
 # redis = require 'redis'
 # db = redis.createClient()
 # 
