@@ -1,0 +1,27 @@
+{
+  "author": "Tom Wilson <tom@jackhq.com>",
+  "name": "rauth",
+  "description": "Remote Authentication System",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/twilson63/rauth.git"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "cake spec"
+  },
+  "engines": {
+    "node": "0.4.x"
+  },
+  "dependencies": {
+	"coffee-script": "1.1.x",
+	"express": "2.x",
+	"redis": "0.6.x",
+	"bcrypt": "0.2.x"
+  },
+  "devDependencies": {
+	"fermata": "0.5.x",
+	"jasmine-node": ""
+  }
+}

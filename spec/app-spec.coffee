@@ -16,15 +16,15 @@ describe 'app', ->
     asyncSpecWait()
   
   # Log In - Success
-  it 'POST /:app/login', ->
-    api.jackdocs.login.post account: 'jackhq', password: 'password', (err, result) ->
+  it 'POST /:app/authenticate', ->
+    api.jackdocs.authenticate.post account: 'jackhq', password: 'password', (err, result) ->
       expect(result).toEqual 'OK'
       asyncSpecDone()
     asyncSpecWait()
     
   # Log In - Fail
-  it 'POST /:app/login', ->
-    api.jackdocs.login.post account: 'jackhq', password: 'password2', (err, result) ->
+  it 'POST /:app/authenticate', ->
+    api.jackdocs.authenticate.post account: 'jackhq', password: 'password2', (err, result) ->
       expect(result).toEqual 'FAIL'
       asyncSpecDone()
     asyncSpecWait()

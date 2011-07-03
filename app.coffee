@@ -10,7 +10,7 @@ app.get '/', (req, resp) ->
   resp.end 'Welcome to RAuth'
 
 # Log In
-app.post '/:app/login', (req, resp) ->
+app.post '/:app/authenticate', (req, resp) ->
   db.sismember "#{req.params.app}:accounts", req.body.account, (err, result) ->
     if result == 1 
       db.hget "#{req.params.app}:accounts:#{req.body.account}", "password", (err, result) ->
